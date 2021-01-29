@@ -1,0 +1,2 @@
+# AlgorithmSolution
+daily algorithm solution
