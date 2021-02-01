@@ -31,7 +31,9 @@ public class Solution_원재의메모리복구하기_D3 {
 					continue;
 				}
 			}
-			System.out.printf("#%d %d\n",i+1 ,count);
+			bw.write("#"+ String.valueOf(i+1) +" "+count+"\n");
+			bw.flush();
+			//System.out.printf("#%d %d\n",i+1 ,count);
 		}
 	}
 }
