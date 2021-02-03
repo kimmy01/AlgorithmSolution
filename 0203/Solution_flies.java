@@ -9,7 +9,8 @@ public class Solution_flies {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int T = Integer.parseInt(br.readLine());
 		
-		for(int tc = 1; tc<=T; tc++) {
+		for(int tc = 1; t
+				c<=T; tc++) {
 			String s = br.readLine();
 			StringTokenizer stk = new StringTokenizer(s);
 			int N = Integer.parseInt(stk.nextToken());
