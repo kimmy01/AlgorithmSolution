@@ -29,9 +29,7 @@ public class Solution_SpotMart {
 					}
 				}
 			}
-			if(max != 0) {
-				answer = max;
-			}
+			if(max != 0) answer = max;
 			System.out.println("#"+i+" "+answer);		
 		}
 	}
