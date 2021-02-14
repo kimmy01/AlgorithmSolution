@@ -49,4 +49,41 @@ public class BFS_DFS {
             ++level;
         }
     }
+    /////////////////////////////////////////////////////////////////////
+    public void printTreeByPreOrder(){
+        System.out.print("PreOrder : ");
+        printTreeByPreOrder(1);
+        System.out.println();
+    }
+    public void printTreeByPreOrder(int current){
+        if(current <= lastIndex){
+            System.out.print(nodes[current]+" "); //현재 노드 방문
+            printTreeByPreOrder(current*2); //왼쪽자식노드 방문
+            printTreeByPreOrder(current*2+1); //오른쪽자식노드 방문
+        }
+    }
+    public void printTreeByInOrder(){
+        System.out.print("InOrder : ");
+        printTreeByInOrder(1);
+        System.out.println();
+    }
+    public void printTreeByInOrder(int current){
+        if(current <= lastIndex){
+            printTreeByInOrder(current*2); //왼쪽자식노드 방문
+            System.out.print(nodes[current]+" "); //현재 노드 방문
+            printTreeByPreOrder(current*2+1); //오른쪽자식노드 방문
+        }
+    }
+    public void printTreeByPostOrder(){
+        System.out.print("PostOrder : ");
+        printTreeByPostOrder(1);
+        System.out.println();
+    }
+    public void printTreeByPostOrder(int current){
+        if(current <= lastIndex){
+            printTreeByPostOrder(current*2); //왼쪽자식노드 방문
+            printTreeByPostOrder(current*2+1); //오른쪽자식노드 방문
+            System.out.print(nodes[current]+" "); //현재 노드 방문
+        }
+    }
 }
