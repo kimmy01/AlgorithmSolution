@@ -32,4 +32,21 @@ public class BFS_DFS {
             if(current*2+1<=lastIndex) queue.offer(current*2+1);
         }
     }
+    public void bfs2(){
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(1);
+        int current, size, level = 0;
+        while(!queue.isEmpty()){
+            size = queue.size();
+            System.out.print("level"+level+" : ");
+            while(--size>=0){
+                current = queue.poll();
+                System.out.print(nodes[current]+"\t");
+                if(current*2<=lastIndex) queue.offer(current*2);
+                if(current*2+1<=lastIndex) queue.offer(current*2+1);
+            }
+            System.out.println();
+            ++level;
+        }
+    }
 }
