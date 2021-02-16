@@ -16,7 +16,6 @@ public class Main_정올_1828_냉장고 {
 			substance[i][0] = Integer.parseInt(stk.nextToken());
 			substance[i][1] = Integer.parseInt(stk.nextToken());
 		}
-		
 		Arrays.sort(substance, new Comparator<int[]>() {
 
 			@Override
