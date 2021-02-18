@@ -3,6 +3,8 @@ package day0217;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 /* 1. map[N+1][M] 배열에 N*M만큼 입력 받고 N+1행은 0으로 채우기, ArrayList에 적의 위치 저장하기 OK
@@ -22,9 +24,11 @@ public class Main_BOJ_17135_캐슬디펜스 {
 	static int N;
 	static int M;
 	static int D;
+	static int count;
 	static int[] res = new int[3];
+	static int[][] target = new int[3][2];
 	static ArrayList<int[]> enemy;
-//	static int[] Marr;
+	//	static int[] Marr;
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer stk = new StringTokenizer(br.readLine(), " ");
@@ -45,12 +49,10 @@ public class Main_BOJ_17135_캐슬디펜스 {
 //			Marr[i] = i;
 //		}
 	}
-	
+
 	static void select(int n, int k, int[]res) {
 		if(k==3) {
-			distance(0);
-			distance(1);
-			distance(2);
+			distance();
 			return;
 		}
 		if(n==M) return;
@@ -59,10 +61,48 @@ public class Main_BOJ_17135_캐슬디펜스 {
 		select(n+1, k+1, res);
 		select(n+1, k, res);
 	}
-	
-	static void distance(int num) {
-		for(int i=0; i<enemy.size(); i++) {
-			
+
+	static void distance() {
+		Queue<int[]> queue = new LinkedList<>();
+		for(int j=0; j<3; j++){
+			int minDistance = Integer.MAX_VALUE;
+			for(int i=0; i<enemy.size(); i++) {
+				int distance = Math.abs(enemy.get(i)[0]-N)+Math.abs(enemy.get(i)[1]-res[j]);
+				if(distance <= D){
+					if(minDistance > distance) {
+						if (queue.isEmpty()) {
+							queue.offer(new int[]{enemy.get(i)[0], enemy.get(i)[1], distance});
+						}else{
+							int[] check = queue.peek();
+							if(check[2] > distance) {
+								queue.poll();
+								queue.offer(new int[]{enemy.get(i)[0], enemy.get(i)[1], distance});
+							}
+						}
+					}
+				}
+			}
+			int[] temp = queue.poll();
+			target[j][0] = temp[0];
+			target[j][1] = temp[1];
 		}
+		return;
+	}
+
+	static void shoot(){
+		if(target[0][0] == target[1][0] && target[0][1] == target[1][1]){ //A와 B의 타겟 같은지?
+			if(target[1][0] == target[2][0] && target[1][1] == target[2][1]){ //B와 C의 타겟 같은지?
+				count++;
+			}else{
+				count+=2;
+			}
+		}else{
+			if(target[1][0] == target[2][0] && target[1][1] == target[2][1]){ //B와 C의 타겟 같은지?
+				count+=2;
+			}else{
+				count+=3;
+			}
+		}
+
 	}
 }
