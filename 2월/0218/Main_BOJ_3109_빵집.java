@@ -20,7 +20,7 @@ public class Main_BOJ_3109_빵집 {
 			for(int j=0; j<C; j++) {
 				map[i][j] = input.charAt(j);
 			}
-		}//입력
+		}
 		pipe(0,0,0);
 		System.out.println(max);
 	}
