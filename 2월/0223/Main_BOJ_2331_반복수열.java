@@ -9,7 +9,6 @@ public class Main_BOJ_2331_반복수열 {
         ArrayList<Integer> list = new ArrayList<>();
         list.add(Integer.parseInt(stk.nextToken()));
         int P = Integer.parseInt(stk.nextToken());
-
         int index = 0;
         while(true){
             int temp = list.get(index);
