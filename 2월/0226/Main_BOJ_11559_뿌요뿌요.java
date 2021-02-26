@@ -14,8 +14,6 @@ public class Main_BOJ_11559_뿌요뿌요 {
     static int n = 12, m = 6, bombcount, total;
     static char[][] map;
     static boolean[][] visited;
-    static Queue<int[]> loc;
-    static ArrayList<Integer> result = new ArrayList<>();
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
 
@@ -24,7 +22,6 @@ public class Main_BOJ_11559_뿌요뿌요 {
         bombcount = 0;
         total = 0;
         map = new char[12][6];
-        loc = new LinkedList<>();
         for (int i = 0; i < 12; i++) {
             String a = br.readLine();
             for (int j = 0; j < 6; j++) {
