@@ -34,7 +34,7 @@ public class Main_BOJ_11559_뿌요뿌요 {
             bombcount = 0;
             for (int i = 11; i >= 0; i--) {//밑에서부터 탐색
                 for (int j = 5; j >= 0; j--) {
-                    if (map[i][j] != '.' && !visited[i][j]) {
+                    if (map[i][j] != '.' ){
                         bfs(new dot(i, j));
                     }
                 }
