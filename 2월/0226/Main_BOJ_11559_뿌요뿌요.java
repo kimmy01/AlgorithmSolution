@@ -9,14 +9,12 @@ class dot{
         this.y = y;
     }
 }
-
 public class Main_BOJ_11559_뿌요뿌요 {
     static int n = 12, m = 6, bombcount, total;
     static char[][] map;
     static boolean[][] visited;
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         bombcount = 0;
@@ -28,7 +26,6 @@ public class Main_BOJ_11559_뿌요뿌요 {
                 map[i][j] = a.charAt(j);
             }
         }
-
         while (true) {
             visited = new boolean[12][6];
             bombcount = 0;
@@ -48,7 +45,6 @@ public class Main_BOJ_11559_뿌요뿌요 {
         }
         System.out.println(total);
     }
-
     static void bfs(dot d) {
         char check = map[d.x][d.y];
         int count = 0;
@@ -88,7 +84,6 @@ public class Main_BOJ_11559_뿌요뿌요 {
             }
         }
     }
-
     static void goDown(int a, int b){
         int tmp = -1;
         for(int i=11; i>a; i--){
