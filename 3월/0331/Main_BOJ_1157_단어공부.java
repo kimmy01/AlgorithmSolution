@@ -10,12 +10,13 @@ public class Main_BOJ_1157_단어공부 {
         s = s.toUpperCase();
         HashMap<Character, Integer> alphabets = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
-            if (alphabets.containsKey(s.charAt(i))) {
-                int temp = alphabets.get(s.charAt(i)) + 1;
-                alphabets.put(s.charAt(i), temp);
+            char key = s.charAt(i);
+            if (alphabets.containsKey(key)) {
+                int temp = alphabets.get(key) + 1;
+                alphabets.put(key, temp);
                 continue;
             }
-            alphabets.put(s.charAt(i), 1);
+            alphabets.put(key, 1);
         }
         int max = 0;
         char maximum = 'a';
