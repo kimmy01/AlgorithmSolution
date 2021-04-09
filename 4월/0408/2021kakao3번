@@ -1,0 +1,79 @@
+import java.util.*;
+
+class Solution {
+    
+    static int[][] board;
+    static int[][] costs;
+    static ArrayList<ArrayList<Integer>> list=new ArrayList<>();
+    
+    static class Node{
+        int loc,cost;
+        
+        Node(int loc,int cost){
+            this.loc=loc;
+            this.cost=cost;
+        }
+    }
+    
+    static void init(int start,int n,int[][] fares){
+        board=new int[n+1][n+1];
+        costs=new int[n+1][n+1];
+        
+        for(int i=0;i<=n;i++){
+            list.add(new ArrayList<>());
+            Arrays.fill(costs[i],987654321);
+            costs[i][i]=0;
+        }
+        
+        for(int i=0;i<fares.length;i++){
+            int s=fares[i][0],e=fares[i][1];
+            list.get(s).add(e);
+            list.get(e).add(s);
+            board[s][e]=fares[i][2];
+            board[e][s]=fares[i][2];
+        }
+        return;
+    }
+    
+    
+    static void calcMinCost(int start){
+        
+        Queue<Node> queue=new LinkedList<>();
+        queue.add(new Node(start,0));
+        
+        while(!queue.isEmpty()){
+            Node node=queue.poll();
+            int now_loc=node.loc,cost=node.cost;
+            
+            for(int i=0;i<list.get(now_loc).size();i++){
+                int next_loc=list.get(now_loc).get(i);
+                int next_cost=board[now_loc][next_loc]+cost;
+                
+                if(costs[start][next_loc]>next_cost){
+                    costs[start][next_loc]=next_cost;
+                    costs[next_loc][start]=next_cost;
+                
+                    queue.add(new Node(next_loc,next_cost));
+                }
+            }
+        }
+    }
+   
+    public int solution(int n, int s, int a, int b, int[][] fares) {
+        int answer = 0;
+        init(s,n,fares);
+        
+        calcMinCost(s);
+        calcMinCost(a);
+        calcMinCost(b);
+        
+        answer=costs[s][a]+costs[s][b];
+        
+        for(int mid=1;mid<=n;mid++){
+            if(costs[s][mid]==123456789 || costs[mid][a]==123456789 || costs[mid][b]==123456789) continue;
+            
+            answer=Math.min(answer,costs[s][mid]+costs[mid][a]+costs[mid][b]);   
+        }
+        return answer;
+    }
+}
