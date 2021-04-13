@@ -1,0 +1,66 @@
+package com.algo0412;
+
+public class kakaoID {
+    public static void main(String[] args) {
+        String new_id = "=.=";
+        //1번
+        new_id = new_id.toLowerCase();
+        int idLength = new_id.length();
+
+        //2번
+        char[] arr = new_id.toCharArray();
+        for(int i=0; i<idLength; i++){
+            int ascii = (int)arr[i];
+            if(ascii==46 || ascii==45 || ascii==95 || (48<=ascii && ascii<=57) || 97<=ascii && ascii<=122){
+                continue;
+            }
+            arr[i] = ' ';
+        }
+        new_id = new String(arr);
+        new_id = new_id.replaceAll(" ", "");
+        //3번
+        idLength = new_id.length();
+        arr = new_id.toCharArray();
+        for(int i=0; i<idLength-1; i++){
+            if(arr[i] == '.'){
+                if(arr[i+1] == '.'){
+                    arr[i] = ' ';
+                }
+            }
+        }
+        new_id = new String(arr);
+        new_id = new_id.replaceAll(" ", "");
+
+        //4번
+        if(new_id.startsWith(".")){
+            new_id = new_id.substring(1, new_id.length());
+        }
+        if(new_id.endsWith(".")){
+            new_id = new_id.substring(0, new_id.length()-1);
+        }
+
+        //5번
+        if(new_id.length() == 0) new_id = "aaa";
+
+        //6번
+        if(new_id.length() >=16 ){
+            new_id = new_id.substring(0, 15);
+        }
+        if(new_id.endsWith(".")){
+            new_id = new_id.substring(0, new_id.length()-1);
+        }
+
+        //7번
+        while(true){
+            if(new_id.length() <= 2){
+                String a = new_id.substring(new_id.length()-1, new_id.length());
+                new_id = new_id.concat(a);
+            }else{
+                break;
+            }
+        }
+
+        String answer = new_id;
+        System.out.println(answer);
+    }
+}
