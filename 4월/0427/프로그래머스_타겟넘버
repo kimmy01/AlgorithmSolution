@@ -1,0 +1,31 @@
+class Solution {
+    static int answer, targetNum;
+    public int solution(int[] numbers, int target) {
+        answer = 0;
+        targetNum = target;
+        
+        powerset(0, numbers, new boolean[numbers.length]);
+        
+        return answer;
+    }
+    static void powerset(int cnt, int[] numbers, boolean[] visited){
+        if(cnt == numbers.length){
+            int tmp = 0;
+            for(int i=0; i<numbers.length; i++){
+                if(visited[i]){
+                    tmp+=numbers[i];
+                }else{
+                    tmp-=numbers[i];
+                }
+            }
+            if(tmp == targetNum){
+                answer++;
+            }
+            return;
+        }
+        visited[cnt] = true;
+        powerset(cnt+1, numbers, visited);
+        visited[cnt] = false;
+        powerset(cnt+1, numbers, visited);
+    }
+}
