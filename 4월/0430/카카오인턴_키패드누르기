@@ -1,0 +1,81 @@
+class Solution {
+    static class Phone{
+        int num;
+        int r;
+        int c;
+        Phone(int num, int r, int c){
+            this.num = num;
+            this.r = r;
+            this.c = c;
+        }
+    }
+    
+    static StringBuilder sb;
+    static Phone[] arr;
+    static int leftThumb;
+    static int rightThumb;
+    public String solution(int[] numbers, String hand) {
+        sb = new StringBuilder();
+        arr = new Phone[12];
+        
+        leftThumb = 10;
+        rightThumb = 11;
+        
+        arr[0] = new Phone(0, 3, 1);
+        arr[1] = new Phone(1, 0, 0);
+        arr[2] = new Phone(2, 0, 1);
+        arr[3] = new Phone(3, 0, 2);
+        arr[4] = new Phone(4, 1, 0);
+        arr[5] = new Phone(5, 1, 1);
+        arr[6] = new Phone(6, 1, 2);
+        arr[7] = new Phone(7, 2, 0);
+        arr[8] = new Phone(8, 2, 1);
+        arr[9] = new Phone(9, 2, 2);
+        arr[10] = new Phone(10, 3, 0);
+        arr[11] = new Phone(11, 3, 2);
+
+        BFS(numbers, hand);
+        
+        String answer = sb.toString();
+        return answer;
+    }
+    
+    static void BFS(int[] numbers, String hand){
+        
+        for(int i=0; i<numbers.length; i++){
+            int tmp = numbers[i];
+            if(tmp == 1 || tmp == 4 || tmp == 7){
+                sb.append("L");
+                leftThumb = tmp;
+                continue;
+            }else if(tmp == 3 || tmp == 6 || tmp == 9){
+                sb.append("R");
+                rightThumb = tmp;
+                continue;
+            }
+            
+            int leftThumbDist = calc(arr[leftThumb].r, arr[leftThumb].c, arr[tmp].r, arr[tmp].c);
+            int rightThumbDist = calc(arr[rightThumb].r, arr[rightThumb].c, arr[tmp].r, arr[tmp].c);
+            
+            if(leftThumbDist > rightThumbDist){
+                sb.append("R");
+                rightThumb = tmp;
+            }else if(leftThumbDist < rightThumbDist){
+                sb.append("L");
+                leftThumb = tmp;
+            }else if(leftThumbDist == rightThumbDist){
+                if(hand.equals("left")){
+                    sb.append("L");
+                    leftThumb = tmp;
+                }else{
+                    sb.append("R");
+                    rightThumb = tmp;
+                }
+            }
+            
+        }
+    }
+    static int calc(int r, int c, int nr, int nc){
+        return Math.abs(r-nr)+Math.abs(c-nc);
+    }
+}
