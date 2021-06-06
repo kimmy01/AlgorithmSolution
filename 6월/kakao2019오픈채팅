@@ -1,0 +1,44 @@
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+class Solution {
+    public String[] solution(String[] record) {
+        HashMap<String, String> nickname = new HashMap<>();
+
+        int cnt = 0;
+
+        for(int i=0; i<record.length; i++){
+            StringTokenizer st = new StringTokenizer(record[i]);
+            String command = st.nextToken();
+            if(command.equals("Enter")){
+                String id = st.nextToken();
+                String nn = st.nextToken();
+                nickname.put(id, nn);
+                cnt++;
+            }else if(command.equals("Change")){
+                String id = st.nextToken();
+                String nn = st.nextToken();
+                nickname.put(id, nn);
+            }else if(command.equals("Leave")){
+                cnt++;
+            }
+        }
+
+        String[] returnArr = new String[cnt];
+
+        for(int i=0; i<record.length; i++){
+            StringTokenizer st = new StringTokenizer(record[i]);
+            String command = st.nextToken();
+            if(command.equals("Enter")){
+                String nn = nickname.get(st.nextToken());
+                returnArr[i] = nn+"님이 들어왔습니다.";
+            }else if(command.equals("Leave")){
+                String nn = nickname.get(st.nextToken());
+                returnArr[i] = nn+"님이 나갔습니다.";
+            }
+        }
+        
+        return returnArr;
+        
+    }
+}
