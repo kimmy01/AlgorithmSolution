@@ -1,0 +1,34 @@
+import java.util.*;
+
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        HashMap<String, Integer> runners = new HashMap<>();
+        
+        for(int i=0; i<participant.length; i++){
+            if(runners.containsKey(participant[i])){
+                int value = runners.get(participant[i])+1;
+                runners.put(participant[i], value);
+            }else{
+                runners.put(participant[i], 1);
+            }
+        }
+        
+        for(int i=0; i<completion.length; i++){
+            if(runners.get(completion[i]) > 1){
+                int value = runners.get(completion[i])-1;
+                runners.put(completion[i], value);
+            }else{
+                runners.remove(completion[i]);
+            }
+        }
+        
+        String answer = "";
+        
+        Iterator<String> keys = runners.keySet().iterator();
+        while(keys.hasNext()){
+            answer = keys.next();
+        }
+        
+        return answer;
+    }
+}
