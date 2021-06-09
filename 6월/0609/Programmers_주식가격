@@ -1,0 +1,30 @@
+import java.util.*;
+class Solution {
+    public int[] solution(int[] prices) {
+        int[] answer = new int[prices.length];
+        Queue<Integer> q = new LinkedList<>();
+        Queue<Integer> tmpQ = new LinkedList<>();
+        for(int i=0; i<prices.length; i++){
+            q.add(prices[i]);
+        }
+        for(int i=0; i<prices.length; i++){
+            int a = q.poll(); //기준값
+            int num = 0; //몇초간 떨어지지 않는지
+            while(!q.isEmpty()){
+                num++;
+                if(q.peek() < a){ //들여다 본 값이 기준값 보다 작으면?
+                    while(!q.isEmpty()){
+                        tmpQ.add(q.poll());
+                    }
+                }else{
+                    tmpQ.add(q.poll());
+                }
+            }
+            while(!tmpQ.isEmpty()){ //기존 큐 다시 채우기
+                q.add(tmpQ.poll());
+            }
+            answer[i] = num;
+        }
+        return answer;
+    }
+}
