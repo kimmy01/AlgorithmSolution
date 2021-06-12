@@ -1,2 +1,2 @@
 # AlgorithmSolution
-daily algorithm solution
+💥daily algorithm solution💥
