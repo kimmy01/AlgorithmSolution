@@ -1,0 +1,29 @@
+import java.util.*;
+class Solution {
+    public int solution(int[][] board, int[] moves) {
+        int answer = 0;
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0; i<moves.length; i++){
+            int direction = moves[i]-1;
+            for(int j=0; j<board.length; j++){
+                if(board[j][direction] != 0){
+                    int tmp = board[j][direction];
+                    if(!stack.isEmpty()){
+                        int top = stack.peek();
+                        if(top == tmp){
+                            answer += 2;
+                            stack.pop();
+                        }else{
+                            stack.push(tmp);
+                        }
+                    }else{
+                        stack.push(tmp);
+                    }
+                    board[j][direction] = 0;
+                    break;
+                }
+            }
+        }
+        return answer;
+    }
+}
