@@ -1,0 +1,35 @@
+import java.util.*;
+class Solution {
+    public ArrayList<Integer> solution(int[] answers) {
+        int[] scores = new int[3];
+        int div = 0;
+        int[][] students = {{0, 1, 2, 3, 4, 5}, 
+                            {0, 2, 1, 2, 3, 2, 4, 2, 5}, 
+                            {0, 3, 3, 1, 1, 2, 2, 4, 4, 5, 5}};
+        for(int j=0; j<3; j++){
+            if(j == 0) div = 5;
+            if(j == 1) div = 8;
+            if(j == 2) div = 10;
+            for(int i=0; i<answers.length; i++){
+                int tmp = (i+1)%div;
+                if(tmp == 0) tmp = div;
+                if(answers[i] == students[j][tmp]){
+                    scores[j]++;
+                }
+            }
+        }
+        ArrayList<Integer> answer = new ArrayList<>();
+        int max = -10;
+        for(int i=0; i<3; i++){
+            System.out.println(i+1 + " : " +scores[i]);
+            if(max < scores[i]){
+                answer.clear();
+                answer.add(i+1);
+                max = scores[i];
+            }else if(max == scores[i]){
+                answer.add(i+1);
+            }
+        }
+        return answer;
+    }
+}
