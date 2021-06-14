@@ -1,0 +1,39 @@
+import java.util.*;
+class Solution {
+    public int[] solution(int N, int[] stages) {
+        int[] answer = new int[N];
+        
+        double[] failed = new double[N+1];
+        double[] copied = new double[N+1];
+        
+        for(int j=1; j<=N; j++){
+            int cnt = 0;
+            for(int i=0; i<stages.length; i++){
+                if(stages[i] == j){
+                    failed[j]++;
+                    cnt++;
+                }else if(stages[i] > j){
+                    failed[j]++;
+                }
+            }
+            if(failed[j] != 0){
+                failed[j] = cnt/failed[j];
+            }
+        }
+        for(int i=1; i<=N; i++){
+            copied[i] = failed[i];
+        }
+        Arrays.sort(copied);
+        int index = 0;
+        for(int i=N; i>=1; i--){
+            for(int j=1; j<=N; j++){
+                if(copied[i] == failed[j]){
+                    answer[index] = j;
+                    index++;
+                    failed[j] = -1;
+                }
+            }
+        }
+        return answer;
+    }
+}
