@@ -1,0 +1,25 @@
+import java.util.*;
+
+public class Solution {
+    public int[] solution(int []arr) {
+        Deque<Integer> deq = new ArrayDeque<>();
+        deq.add(arr[0]);
+        for(int i=1; i<arr.length; i++){
+            int tmp = deq.peekLast();
+            if(tmp == arr[i]){
+                continue;
+            }
+            deq.add(arr[i]);
+        }
+        
+        int size = deq.size();
+        int[] answer = new int[size];
+        int idx = 0;
+        while(!deq.isEmpty()){
+            answer[idx] = deq.poll();
+            idx++;
+        }
+
+        return answer;
+    }
+}
