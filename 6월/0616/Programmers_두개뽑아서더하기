@@ -1,0 +1,23 @@
+import java.util.*;
+class Solution {
+    public ArrayList<Integer> solution(int[] numbers) {
+        
+        Arrays.sort(numbers);
+        int tmp = numbers[numbers.length-1] + numbers[numbers.length-2];
+        boolean[] checked = new boolean[tmp+1];
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        for(int i=0; i<numbers.length-1; i++){
+            for(int j=i+1; j<numbers.length; j++){
+                int hap = numbers[i]+numbers[j];
+                if(checked[hap]) continue;
+                list.add(hap);
+                checked[hap] = true;
+            }
+        }
+        
+        Collections.sort(list);
+        return list;
+    }
+}
