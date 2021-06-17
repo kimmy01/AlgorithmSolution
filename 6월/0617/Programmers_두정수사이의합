@@ -1,0 +1,17 @@
+class Solution {
+    public long solution(int a, int b) {
+        long answer = 0;
+        long a_ = (long)a;
+        long b_ = (long)b;
+        
+        if(a == b){
+            answer = a;
+        }else if(a > b){
+            answer = (a_+b_)*(a_-b_+1)/2;
+        }else if(a < b){
+            answer = (a_+b_)*(b_-a_+1)/2;
+        }
+        
+        return answer;
+    }
+}
