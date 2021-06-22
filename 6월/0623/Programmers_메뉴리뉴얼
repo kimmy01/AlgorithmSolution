@@ -1,0 +1,64 @@
+import java.util.*;
+public class Programmers_메뉴리뉴얼 {
+    static String[] orders = {"ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"};
+    static int[] course = {2, 3, 5};
+    static char[][] menus;
+    static HashMap<String, Integer> comb;
+    static char[] selected;
+    static ArrayList<String> list;
+    public static void main(String[] args) {
+        list = new ArrayList<>();
+        menus= new char[orders.length][];
+        for(int i=0; i<orders.length; i++){ //배열 생성
+            menus[i] = orders[i].toCharArray();
+        }
+        for(int i=0; i<course.length; i++){ //메뉴 개수마다 조합 만들고 해쉬맵에 추가하고, 값이 있으면 밸류 증가
+            comb = new HashMap<>();
+            for(int j=0; j<menus.length; j++){
+                selected = new char[course[i]];
+                char[] tmp = menus[j];
+                Arrays.sort(tmp);
+                Comb(tmp, course[i], 0, 0);
+            }
+            System.out.println();
+            List<Map.Entry<String, Integer>> entryList = new LinkedList<>(comb.entrySet());
+            entryList.sort(new Comparator<Map.Entry<String, Integer>>() {
+                @Override
+                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                    return o2.getValue() - o1.getValue();
+                }
+            });
+
+            int maxValue = 0;
+            for(Map.Entry<String, Integer> entry : entryList){
+                if(entry.getValue() > 1 && maxValue <= entry.getValue()){
+                    list.add(entry.getKey());
+                    maxValue = Math.max(maxValue, entry.getValue());
+                }else{
+                    break;
+                }
+            }
+        }
+        Collections.sort(list);
+        for(int i=0; i<list.size(); i++){
+            System.out.println(list.get(i));
+        }
+    }
+    static void Comb(char[] arr, int N, int start, int cnt){
+        if(cnt == N){
+            String str = new String(selected);
+            System.out.println(str);
+            if(comb.containsKey(str)){
+                int tmp = comb.get(str);
+                comb.put(str, tmp+1);
+            }else{
+                comb.put(str, 1);
+            }
+            return;
+        }
+        for(int i=start; i<arr.length; i++){
+            selected[cnt] = arr[i];
+            Comb(arr, N, i+1, cnt+1);
+        }
+    }
+}
