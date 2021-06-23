@@ -1,0 +1,23 @@
+class Solution {
+    boolean solution(String s) {
+        boolean answer = true;
+
+        char[] words = s.toCharArray();
+        
+        int pCount = 0;
+        int yCount = 0;
+        
+        for(int i=0; i<words.length; i++){
+            if(words[i] == 'p' || words[i] == 'P'){
+                pCount++;
+            }else if(words[i] == 'y' || words[i] == 'Y'){
+                yCount++;
+            }
+        }
+
+        if(pCount != yCount)
+            answer = false; 
+        
+        return answer;
+    }
+}
