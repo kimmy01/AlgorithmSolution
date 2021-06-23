@@ -1,0 +1,71 @@
+import java.util.*;
+class Solution {
+    static int M, N;
+    static int[] dr = {-1, 1, 0, 0}; //상하좌우
+    static int[] dc = {0, 0, -1, 1}; //상하좌우
+    static ArrayList<Integer> list;
+    static boolean[][] visited;
+    
+    public int[] solution(int m, int n, int[][] picture) {
+        int numberOfArea = 0;
+        int maxSizeOfOneArea = 0;
+        
+        M = m;
+        N = n;
+        
+        list = new ArrayList<>();
+        visited = new boolean[M][N];
+        
+        int picNum = 1;
+        for(int i=0; i<M; i++){
+            for(int j=0; j<N; j++){
+                if(!visited[i][j] && picture[i][j] != 0){
+                    func(picture[i][j], i, j, picture);
+                    picNum++;
+                }
+            }
+        }
+        
+        Collections.sort(list);
+        maxSizeOfOneArea = list.get(list.size()-1);
+        numberOfArea = list.size();
+
+        int[] answer = new int[2];
+        answer[0] = numberOfArea;
+        answer[1] = maxSizeOfOneArea;
+        return answer;
+    }
+    
+    static void func(int color, int r, int c, int[][] map){
+        //현재 색깔과 맞닿은 부분들이 모두 현재 색깔과 같은지? 같으면 영역 넓이 더해주고 큐에 집어넣기 
+        //bfs로 구현 & 방문처리
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{r, c});
+        int cnt = 0;
+        
+        while(!queue.isEmpty()){
+            int[] tmp = queue.poll();
+            if(visited[tmp[0]][tmp[1]]){
+                continue;
+            }
+            visited[tmp[0]][tmp[1]] = true;
+            cnt++;
+            
+            for(int i=0; i<4; i++){
+                int nr = tmp[0]+dr[i];
+                int nc = tmp[1]+dc[i];
+                if(!inRange(nr, nc)){
+                    continue;
+                }
+                if(inRange(nr, nc) && map[nr][nc] == color && !visited[nr][nc]){
+                    queue.add(new int[]{nr, nc});
+                }
+            }
+        }
+        list.add(cnt);
+    }
+    static boolean inRange(int r, int c){
+        if(0<=r && r<M && 0<=c && c<N) return true;
+        return false;
+    }
+}
