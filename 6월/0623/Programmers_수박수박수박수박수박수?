@@ -1,0 +1,21 @@
+class Solution {
+    public String solution(int n) {
+        String answer = "";
+        
+        String odd = "수";
+        String even = "수박";
+        
+        if(n%2 == 1){
+            for(int i=0; i<n/2; i++){
+                answer += even;
+            }
+            answer += odd;
+        }else{
+            for(int i=0; i<n/2; i++){
+                answer += even;
+            }
+        }
+        
+        return answer;
+    }
+}
