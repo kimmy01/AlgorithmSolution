@@ -1,0 +1,48 @@
+import java.util.*;
+public class Programmers_프린터 {
+    public static void main(String[] args) {
+        int[] priorities = {1, 1, 9, 1, 1, 1};
+        int location = 0;
+        int answer = 0;
+
+        Integer[] sortedPriorities = Arrays.stream(priorities).boxed().toArray(Integer[]::new);
+        Arrays.sort(sortedPriorities, Collections.reverseOrder());
+
+        Queue<Integer> q = new LinkedList<>();
+        for(int i=0; i<priorities.length; i++){
+            if(i == location){
+                q.add(10);
+            }else{
+                q.add(priorities[i]);
+            }
+        }//큐에 넣기 (찾으려는 위치는 10으로 넣기)
+        int cnt = 0;
+        boolean flag = false;
+        for(int i=0; i<sortedPriorities.length; i++){
+            while(true){
+                int tmp = q.poll();
+                if(tmp == 10){
+                    if(sortedPriorities[i] <= priorities[location]){
+                        cnt++;
+                        answer = cnt;
+                        flag = true;
+                        break;
+                    }else{
+                        q.add(tmp);
+                    }
+                }else if(tmp >= sortedPriorities[i]){
+                    cnt++;
+                    break;
+                }else{
+                    q.add(tmp);
+                }
+            }
+            if(flag){
+                answer = cnt;
+                break;
+            }
+        }
+        System.out.println(answer);
+
+    }
+}
