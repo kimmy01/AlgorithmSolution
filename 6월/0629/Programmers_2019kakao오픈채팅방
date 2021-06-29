@@ -1,0 +1,28 @@
+import java.util.*;
+
+class Solution {
+    static HashMap<String,String> map = new HashMap<>();
+    public ArrayList<String> solution(String[] record) {
+        
+        for(int i = 0 ; i < record.length ; i ++){
+            String[] temp = record[i].split(" ");
+            if(record[i].startsWith("Enter")){
+                map.put(temp[1],temp[2]);
+            } else if(record[i].startsWith("Change")){
+                map.put(temp[1],temp[2]);
+            }
+        }
+
+        ArrayList<String> answer = new ArrayList<>();
+        for(int i = 0 ; i < record.length ; i ++){
+            String[] temp = record[i].split(" ");
+            if(record[i].startsWith("Enter")){
+                answer.add(map.get(temp[1]) + "님이 들어왔습니다.");
+            } else if(record[i].startsWith("Leave")){
+                answer.add(map.get(temp[1]) + "님이 나갔습니다.");
+            }
+        }
+        
+        return answer;
+    }
+}
