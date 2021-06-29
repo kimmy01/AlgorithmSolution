@@ -1,0 +1,81 @@
+import java.lang.*;
+import java.util.*;
+
+class Solution {
+    public int solution(String str1, String str2) {
+        int answer = 0;
+        
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+        
+        HashMap<String, Integer> hash1 = new HashMap<>();
+        HashMap<String, Integer> hash2 = new HashMap<>();
+        
+        int str1Cnt = 0;
+        for(int i=0; i<str1.length()-1; i++){
+            String tmp = str1.substring(i, i+2);
+            if((int)tmp.toCharArray()[0] >= 97 && 
+               (int)tmp.toCharArray()[0] <= 122 && 
+               (int)tmp.toCharArray()[1] >= 97 && 
+               (int)tmp.toCharArray()[1] <= 122){
+                str1Cnt++;
+                if(hash1.containsKey(tmp)){
+                    hash1.put(tmp, hash1.get(tmp)+1);
+                }else{
+                    hash1.put(tmp, 1);
+                }
+            }
+        }
+        
+        int str2Cnt = 0;
+        for(int i=0; i<str2.length()-1; i++){
+            String tmp = str2.substring(i, i+2);
+            if((int)tmp.toCharArray()[0] >= 97 && 
+               (int)tmp.toCharArray()[0] <= 122 && 
+               (int)tmp.toCharArray()[1] >= 97 && 
+               (int)tmp.toCharArray()[1] <= 122){
+                str2Cnt++;
+                if(hash2.containsKey(tmp)){
+                    hash2.put(tmp, hash2.get(tmp)+1);
+                }else{
+                    hash2.put(tmp, 1);
+                }
+            }
+        }
+        
+        int intersectionCnt = 0;
+        
+        if(str1Cnt == 0 && str2Cnt == 0){
+            return 65536;
+        }
+        
+        if(hash1.size() > hash2.size()){
+            for(Map.Entry<String, Integer> e : hash2.entrySet()){
+                String key = e.getKey();
+                int value = e.getValue();
+                if(hash1.containsKey(key)){
+                    intersectionCnt += Math.min(value, hash1.get(key));
+                }
+            }
+        }else{
+            for(Map.Entry<String, Integer> e : hash1.entrySet()){
+                String key = e.getKey();
+                int value = e.getValue();
+                if(hash2.containsKey(key)){
+                    intersectionCnt += Math.min(value, hash2.get(key));
+                }
+            }
+        }
+        
+        int unionCnt = str1Cnt+str2Cnt-intersectionCnt;
+        System.out.println("str1Cnt: "+str1Cnt);
+        System.out.println("str2Cnt: "+str2Cnt);
+        System.out.println("unionCnt: "+unionCnt);
+        System.out.println("intersectionCnt: "+intersectionCnt);
+        
+        float a = (float)intersectionCnt / (float) unionCnt;
+        answer = (int)Math.floor(a*65536);
+        
+        return answer;
+    }
+}
