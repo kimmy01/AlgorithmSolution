@@ -1,0 +1,42 @@
+import java.util.*;
+import java.lang.*;
+class Solution {
+    public int solution(String s) {
+        int answer = 123456789;
+
+        for(int i=1; i<=s.length()/2+1; i++){
+            Queue<String> q = new LinkedList<>();
+            String tmpS = s;
+            while(true){
+                if(tmpS.length() <= i) {
+                    q.add(tmpS);
+                    break;
+                }
+                q.add(tmpS.substring(0, i));
+                tmpS = tmpS.substring(i);
+            }
+            String check = "";
+            while(!q.isEmpty()) {
+                String cutword = q.poll();
+                int cnt = 1;
+                while (true) {
+                    if (!q.isEmpty() && q.peek().equals(cutword)) {
+                        cnt++;
+                        q.poll();
+                    } else {
+                        break;
+                    }
+                }
+
+                if (cnt == 1) {
+                    check += cutword;
+                } else {
+                    check += String.valueOf(cnt);
+                    check += cutword;
+                }
+            }
+            answer = Math.min(answer, check.length());
+        }
+        return answer;
+    }
+}
