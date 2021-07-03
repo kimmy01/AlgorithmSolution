@@ -1,0 +1,48 @@
+import java.util.*;
+class Solution {
+    static int answer;
+    public int solution(String[][] clothes) {
+        answer = 1;
+        
+        HashMap<String, Integer> map = new HashMap<>();
+        for(int i=0; i<clothes.length; i++){
+            String tmp = clothes[i][1];
+            if(map.containsKey(tmp)){
+                int value = map.get(tmp)+1;
+                map.put(tmp, value);
+            }else{
+                map.put(tmp, 1);
+            }
+        }
+        int[] categories = new int[map.size()];
+        int idx = 0;
+        for(String key : map.keySet()){
+            categories[idx] = map.get(key)+1;
+            idx++;
+        }
+        
+        for(int i=0; i<categories.length; i++){
+            answer *= categories[i];
+        }
+        
+        // PowerSet(categories, 0, new boolean[categories.length]);
+        
+        return answer-1;
+    }
+    // static void PowerSet(int[] array, int index, boolean[] selected){
+    //     if(index == array.length){
+    //         int cnt = 1;
+    //         for(int i=0; i<selected.length; i++){
+    //             if(selected[i]){
+    //                 cnt*=array[i];
+    //             }
+    //         }
+    //         answer += cnt;
+    //         return;
+    //     }
+    //     selected[index] = true;
+    //     PowerSet(array, index+1, selected);
+    //     selected[index] = false;
+    //     PowerSet(array, index+1, selected);
+    // }
+}
