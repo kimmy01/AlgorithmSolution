@@ -1,0 +1,23 @@
+class Solution {
+    public boolean solution(int x) {
+        boolean answer = true;
+        
+        int tmpX = x;
+        int div = 0;
+        
+        while(true){
+            if(tmpX<10){
+                div += tmpX;
+                break;
+            }
+            div += tmpX%10;
+            tmpX = tmpX/10;
+        }
+        
+        if(x%div != 0){
+            answer = false;
+        }
+        
+        return answer;
+    }
+}
