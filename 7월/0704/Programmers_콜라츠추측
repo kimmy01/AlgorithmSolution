@@ -1,0 +1,31 @@
+class Solution {
+    public int solution(int num) {
+        int answer = 0;
+        
+        if(num == 1) return answer;
+        long numTmp = (long)num;
+         
+        int cnt = 0;
+        while(true){
+            if(cnt >= 500){
+                answer = -1;
+                break;
+            }
+            
+            if(numTmp%2 == 0){
+                numTmp = numTmp/2;
+            }else{
+                numTmp = (numTmp*3)+1;
+            }
+            
+            cnt++;
+            
+            if(numTmp == 1){
+                answer = cnt;
+                break;
+            }
+        }
+        
+        return answer;
+    }
+}
