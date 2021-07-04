@@ -1,0 +1,17 @@
+import java.util.*;
+class Solution {
+    public ArrayList<Integer> solution(long n) {
+        ArrayList<Integer> answer = new ArrayList<>();
+        
+        while(true){
+            if(n<10){
+                answer.add((int)n);
+                break;
+            }
+            answer.add((int)(n%10));
+            n = n/10;
+        }
+        
+        return answer;
+    }
+}
