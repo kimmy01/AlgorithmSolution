@@ -1,0 +1,70 @@
+class Solution {
+    public int solution(String name) {
+        int answer = 0;
+        int wordLength = name.length();
+        char[] temp = name.toCharArray();
+        boolean[] whereIsA = new boolean[wordLength];
+        int Acnt = 0; //A개수
+        for(int i=0; i<wordLength; i++){
+            if(temp[i] == 'A'){
+                whereIsA[i] = true;
+                Acnt++;
+            }
+        }
+        int notAcnt = wordLength - Acnt; //A아닌거 개수
+        int nowLoc = 0; //현재위치
+        if(!whereIsA[nowLoc]){
+            answer += calc(temp[nowLoc]);
+            whereIsA[nowLoc] = true;
+            notAcnt--;
+        } //제일 첫번째 문자 바꿔주기
+        
+        //커서 이동시키는 계산
+        int cnt = 0;
+        
+        while(true){
+            boolean flag = true;
+            for(int i=0; i<whereIsA.length; i++){
+                if(!whereIsA[i]){
+                    flag = false;
+                }
+            }
+            if(flag) break;
+            int leftLoc = nowLoc;
+            int rightLoc = nowLoc;
+            while(true){
+                leftLoc--;
+                if(leftLoc < 0) leftLoc = wordLength-1;
+                rightLoc++;
+                if(rightLoc >= wordLength) rightLoc = 0;
+                cnt++;
+                if(!whereIsA[rightLoc]){
+                    answer += cnt + calc(temp[rightLoc]);
+                    whereIsA[rightLoc] = true;
+                    nowLoc = rightLoc;
+                    cnt = 0;
+                    notAcnt--;
+                    break;
+                }else if(!whereIsA[leftLoc]){
+                    answer += cnt + calc(temp[leftLoc]);
+                    whereIsA[leftLoc] = true;
+                    nowLoc = leftLoc;
+                    cnt = 0;
+                    notAcnt--;
+                    break;
+                }
+            }
+        }
+        return answer;
+    }
+    
+    //문자 바꿔주기 계산
+    static int calc(int value){
+        if(65 < value && value <= 77){
+            return value-65;
+        }else{
+            return 91 - value;
+        }
+    }
+    
+}
