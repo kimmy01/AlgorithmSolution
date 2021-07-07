@@ -1,0 +1,32 @@
+import java.util.*;
+import java.lang.*;
+class Solution {
+    public int[] solution(int n, String[] words) {
+        int[] answer = new int[2];
+
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다. 
+        System.out.println("Hello Java");
+        
+        HashSet<String> set = new HashSet<>();
+        for(int i=0; i<words.length; i++){
+            if(set.contains(words[i]) || words[i].length() == 1 || 
+               (i>0 && !words[i-1].substring(words[i-1].length()-1).equals(words[i].substring(0,1)))){
+                int a = (i+1)/n; //몇번째?
+                int b = (i+1)%n; //누구?
+                if(b == 0){
+                    answer[0] = n;
+                    answer[1] = a;
+                }else{
+                    answer[0] = b;
+                    answer[1] = a+1;
+                }
+                System.out.println(i+1);
+                return answer;
+            }else{
+                set.add(words[i]);
+            }
+        }
+
+        return answer;
+    }
+}
