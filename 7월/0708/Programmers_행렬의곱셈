@@ -1,0 +1,19 @@
+class Solution {
+    public int[][] solution(int[][] arr1, int[][] arr2) {
+        int[][] answer = new int[arr1.length][arr2[0].length];
+        
+        for(int i=0; i<arr2[0].length ; i++){ //arr2의 열
+            for(int l=0; l<arr1.length; l++){ //arr1의 행
+                for(int j=0; j<arr2.length ; j++){ //arr2의 행
+                    int tmp = 0;
+                    for(int k=0; k<arr1[0].length ; k++){ //arr1의 열
+                        tmp += arr1[l][k]*arr2[k][i];
+                    }
+                    answer[l][i] = tmp;
+                } 
+            }
+        }
+        
+        return answer;
+    }
+}
