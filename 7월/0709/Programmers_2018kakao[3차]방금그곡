@@ -1,0 +1,46 @@
+import java.util.*;
+import java.lang.*;
+
+class Solution {
+    public String solution(String m, String[] musicinfos) {
+        String answer = "";
+        
+        String[] whichReplace = {"A#", "C#", "D#", "F#", "G#"};
+        String[] replaceThis = {"a", "c", "d", "f", "g"};
+        
+        for(int j=0; j<whichReplace.length; j++){
+            m = m.replace(whichReplace[j], replaceThis[j]);
+        }
+        
+        int max = 0;
+        
+        
+        for(int i=0; i<musicinfos.length; i++){
+            String[] array = musicinfos[i].split(",");
+            String[] start = array[0].split(":");
+            String[] end = array[1].split(":");
+            
+            int musicLength = (Integer.parseInt(end[0])-Integer.parseInt(start[0]))*60 
+                + (Integer.parseInt(end[1])-Integer.parseInt(start[1]));
+            
+            for(int j=0; j<whichReplace.length; j++){
+                array[3] = array[3].replace(whichReplace[j], replaceThis[j]);
+            }
+            
+            String realMusic = array[3].repeat((musicLength/array[3].length())+1);
+            realMusic = realMusic.substring(0, musicLength);
+            
+            if(realMusic.contains(m)){
+                if(musicLength > max){
+                    max = musicLength;
+                    answer = array[2];
+                }
+            }
+        }
+        if(answer.equals("")){
+            answer = "(None)";
+        }
+        
+        return answer;
+    }
+}
