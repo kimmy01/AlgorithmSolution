@@ -1,0 +1,14 @@
+import java.lang.Math;
+
+class Solution {
+    public long solution(long n) {
+        long answer = 0;
+        long tmp = (long)Math.sqrt(n);
+        if(Math.pow(tmp, 2) == n){
+            answer = (long)Math.pow(tmp+1, 2);
+        }else{
+            answer = -1;
+        }
+        return answer;
+    }
+}
