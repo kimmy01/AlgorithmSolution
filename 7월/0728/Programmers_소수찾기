@@ -1,0 +1,22 @@
+//에라토스테네스의 체
+
+class Solution {
+    public int solution(int n) {
+        int answer = n - 1; //1은 소수가 아니기 때문에 -1 해줌
+        
+        boolean[] primeNum = new boolean[n+1];
+        primeNum[0] = primeNum[1] = true;
+        
+        for(int i=2; i*i<=n; i++){ //n의 제곱근까지 확인하기
+            if(!primeNum[i]){
+                for(int j=2; i*j<=n; j++){ //i*2, i*3, i*4, ... 해보기
+                    if(primeNum[i*j]) 
+                        continue;
+                    primeNum[i*j] = true;
+                    answer--;
+                }
+            }
+        }
+        return answer;
+    }
+}
