@@ -1,0 +1,29 @@
+import java.util.*;
+class Solution {
+    public String solution(String s) {
+        String answer = "";
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        StringTokenizer st = new StringTokenizer(s, " ");
+        while(st.hasMoreTokens()){
+            String tmp = st.nextToken();
+            if(tmp.charAt(0) == '-'){
+                list.add(Integer.parseInt(tmp.substring(1))*(-1));
+            }else{
+                list.add(Integer.parseInt(tmp));
+            }
+        }
+        
+        Collections.sort(list);
+        
+        answer += Integer.toString(list.get(0))+" ";
+        int last = list.size();
+        answer += Integer.toString(list.get(last-1));
+        
+        return answer;
+    }
+}
+
+//중요 조건!
+//String으로 표현된 숫자를 정수형으로 변경할 때 음수 주의
