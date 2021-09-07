@@ -1,0 +1,28 @@
+import java.util.*;
+import java.lang.*;
+class Solution {
+    public int[] solution(int brown, int yellow) {
+        int[] answer = new int[2];
+        
+        int a = brown+yellow;
+        Double d = Math.sqrt(a);
+        int tmp = d.intValue();
+        
+        answer[0] = tmp;
+        answer[1] = tmp;
+        
+        int flag = 0;
+        
+        while(true){
+            int calc = answer[0]*answer[1];
+            if(calc == a && (answer[0]-2)*(answer[1]-2) == yellow){
+                break;
+            }else if(calc > a){
+                answer[1]--;
+            }else{
+                answer[0]++;
+            }
+        }
+        return answer;
+    }
+}
