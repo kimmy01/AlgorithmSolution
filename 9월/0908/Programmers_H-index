@@ -4,19 +4,22 @@ class Solution {
         int answer = 0;
         Arrays.sort(citations);
         
-        int max = citations.length;
+        int max = citations.length; //최댓값 = 논문의 전체 개수
         int value = 0;
         
         for(int i=citations.length-1; i>=0; i--){
-            if(citations[i] > max){
+            if(citations[i] >= max){ //현재논문의 인용횟수가 최댓값보다 크면 다음 논문으로
                 continue;
             }
-            value = max;
+            value = max; //최댓값 넣어줌
             while(true){
-                if(i > 0 && value == citations[i-1]){
+                if(i > 0 && value <= citations[i-1]){ //다음 논문으로 넘어감
                     break;
                 }
-                if(citations.length - i >= value){
+                
+                if(i > 0 && citations.length - i >= value){
+                    return value;
+                }else if(i == 0 && citations.length - (i+1) >= value){
                     return value;
                 }else{
                     value--;
