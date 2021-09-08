@@ -1,0 +1,28 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] citations) {
+        int answer = 0;
+        Arrays.sort(citations);
+        
+        int max = citations.length;
+        int value = 0;
+        
+        for(int i=citations.length-1; i>=0; i--){
+            if(citations[i] > max){
+                continue;
+            }
+            value = max;
+            while(true){
+                if(i > 0 && value == citations[i-1]){
+                    break;
+                }
+                if(citations.length - i >= value){
+                    return value;
+                }else{
+                    value--;
+                }
+            }
+        }
+        return max;
+    }
+}
