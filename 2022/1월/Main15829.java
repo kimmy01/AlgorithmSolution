@@ -14,9 +14,12 @@ public class Main15829 {
         String tmp = br.readLine();
         for(int i=0; i<L; i++){
             long num = tmp.charAt(i) - 'a'+1;
-            answer += (num * (long)(Math.pow(r, i))) % M;
+            answer += num * hash(i);
         }
         answer = answer % M;
         System.out.println(answer);
+    }
+    static long hash(int num){
+        return num == 0 ? 1 : r * hash(num - 1) % M;
     }
 }
