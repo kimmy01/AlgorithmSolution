@@ -54,8 +54,8 @@ public class Main1167 {
         while(!queue.isEmpty()){
             Node now = queue.poll();
             if(now.cnt > maxCnt){
-                maxCnt = now.cnt;
-                max = now.idx;
+                maxCnt = now.cnt; //가장 먼 노드의 거리
+                max = now.idx; //가장 먼 노드의 번호
             }
             for(Edge e : nodeList[now.idx]){
                 if(!visited[e.end]){
