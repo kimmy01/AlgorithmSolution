@@ -12,33 +12,28 @@ public class Main20542 {
         String seungyeon = br.readLine();
         String answer = br.readLine();
         int[][] LCS = new int[n+1][m+1];
-        long max = 0;
-        for(int i=0; i<=n; i++){
-            for(int j=0; j<=m; j++){
-                if(i == 0 || j == 0) {
-                    LCS[i][j] = 0;
-                    continue;
-                }
-                if(seungyeon.charAt(i-1) == answer.charAt(j-1)){
-                    LCS[i][j] = LCS[i-1][j-1] + 1;
-                    max = Math.max(max, LCS[i][j]);
-                }else if((seungyeon.charAt(i-1) == 'i' && answer.charAt(j-1) == 'j') || (seungyeon.charAt(i-1) == 'i' && answer.charAt(j-1) == 'l')){
-                    LCS[i][j] = LCS[i-1][j-1] + 1;
-                    max = Math.max(max, LCS[i][j]);
-                }else if(seungyeon.charAt(i-1) == 'v' && answer.charAt(j-1) == 'w') {
-                    LCS[i][j] = LCS[i-1][j-1] + 1;
-                    max = Math.max(max, LCS[i][j]);
-                }else {
-                    LCS[i][j] = 0;
+
+        for(int i=1; i<=n; i++){
+            LCS[i][0] = i;
+        }
+        for(int j=1; j<=m; j++){
+            LCS[0][j] = j;
+        }
+        for(int j=1; j<=m; j++){
+            for(int i=1; i<=n; i++){
+                if(isCorrect(seungyeon.charAt(i-1), answer.charAt(j-1))){
+                    LCS[i][j] = LCS[i-1][j-1];
+                }else{
+                    LCS[i][j] = Math.min(LCS[i-1][j-1]+1, Math.min(LCS[i-1][j]+1, LCS[i][j-1]+1));
                 }
             }
         }
-        if(seungyeon.length() > answer.length()){
-            System.out.println(seungyeon.length() - max);
-        }else if(seungyeon.length() < answer.length()){
-            System.out.println(answer.length() - (seungyeon.length() - max));
-        }else{
-            System.out.println(answer.length() - max);
-        }
+        System.out.println(LCS[n][m]);
+    }
+    static boolean isCorrect(char c1, char c2){
+        if(c1 == c2) return true;
+        else if(c1 == 'i' && (c2 == 'l' || c2 == 'j')) return true;
+        else if(c1 == 'v' && c2 == 'w') return true;
+        else return false;
     }
 }
